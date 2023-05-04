@@ -1,0 +1,170 @@
+[
+  {
+    "name": "Alice Smith",
+    "email": "alice.smith@example.com",
+    "posts": [
+      {
+        "title": "10 Ways to Use React Hooks",
+        "content": "React Hooks are a powerful tool for managing state in React. Here are 10 ways you can use them in your projects.",
+        "slug": "10-ways-to-use-react-hooks"
+      },
+      {
+        "title": "How to Build a Full-Stack App with React and Node.js",
+        "content": "In this tutorial, we'll go over how to build a full-stack app using React and Node.js.",
+        "slug": "how-to-build-a-full-stack-app-with-react-and-nodejs"
+      },
+      {
+        "title": "Introduction to TypeScript for React Developers",
+        "content": "TypeScript can help you write safer and more maintainable code in your React projects. Here's a quick introduction to using TypeScript with React.",
+        "slug": "introduction-to-typescript-for-react-developers"
+      },
+      {
+        "title": "10 Best Practices for Writing Clean React Code",
+        "content": "Writing clean, maintainable React code can be a challenge. Here are 10 best practices to help you write better code.",
+        "slug": "10-best-practices-for-writing-clean-react-code"
+      },
+      {
+        "title": "How to Deploy a React App to AWS",
+        "content": "In this tutorial, we'll go over how to deploy a React app to AWS using Elastic Beanstalk.",
+        "slug": "how-to-deploy-a-react-app-to-aws"
+      },
+      {
+        "title": "Creating Reusable React Components",
+        "content": "Creating reusable components is key to building scalable and maintainable React apps. Here are some tips on how to create reusable React components.",
+        "slug": "creating-reusable-react-components"
+      },
+      {
+        "title": "How to Use Redux with React",
+        "content": "Redux is a popular state management library for React. Here's a quick guide on how to use Redux with React.",
+        "slug": "how-to-use-redux-with-react"
+      },
+      {
+        "title": "React Performance Optimization Tips",
+        "content": "If your React app is running slow, it may be time to optimize its performance. Here are some tips on how to optimize React performance.",
+        "slug": "react-performance-optimization-tips"
+      },
+      {
+        "title": "Server-Side Rendering with React and Node.js",
+        "content": "Server-side rendering can help improve the performance and SEO of your React app. Here's a tutorial on how to implement server-side rendering with React and Node.js.",
+        "slug": "server-side-rendering-with-react-and-nodejs"
+      },
+      {
+        "title": "10 Common React Mistakes and How to Avoid Them",
+        "content": "React is a powerful tool, but it's easy to make mistakes. Here are 10 common React mistakes and how to avoid them.",
+        "slug": "10-common-react-mistakes-and-how-to-avoid-them"
+      }
+    ]
+  },
+  {
+    "name": "Bob Johnson",
+    "email": "bob.johnson@example.com",
+    "posts": [
+      {
+        "title": "Introduction to React Native",
+        "content": "React Native is a powerful tool for building native mobile apps using JavaScript and React. Here's a quick introduction to React Native.",
+        "slug": "introduction-to-react-native"
+      },
+      {
+        "title": "Building a Real-Time Chat App with React and Firebase",
+        "content": "In this tutorial, we'll go over how to build a real-time chat app using React and Firebase.",
+        "slug": "building-a-real-time-chat-app-with-react-and-firebase"
+      },
+      {
+        "title": "10 Essential React Libraries",
+        "content": "React is a powerful tool, but it's even more powerful when you use the right libraries. Here are 10 essential React libraries you should be using in your projects.",
+        "slug": "10-essential-react-libraries"
+      },
+      {
+        "title": "How to Test React Components",
+        "content": "Testing is an important part of building React apps. Here's a guide on how to test React components.",
+        "slug": "how-to-test-react-components"
+      },
+      {
+        "title": "Creating a Responsive Design with React",
+        "content": "Creating a responsive design is important for building modern web apps. Here's a tutorial on how to create a responsive design with React.",
+        "slug": "creating-a-responsive-design-with-react"
+      },
+      {
+        "title": "React Animations Made Easy",
+        "content": "Animations can add a lot of polish to your React app. Here's a guide on how to easily add animations to your React app.",
+        "slug": "react-animations-made-easy"
+      },
+      {
+        "title": "Building a Full-Stack App with React and GraphQL",
+        "content": "GraphQL is a powerful tool for building APIs. Here's a tutorial on how to build a full-stack app with React and GraphQL.",
+        "slug": "building-a-full-stack-app-with-react-and-graphql"
+      },
+      {
+        "title": "10 React Performance Tips",
+        "content": "React is a powerful tool, but it can be slow if you're not careful. Here are 10 tips to help you improve the performance of your React app.",
+        "slug": "10-react-performance-tips"
+      },
+      {
+        "title": "Building a React Native App with Expo",
+        "content": "Expo is a powerful tool for building React Native apps. Here's a tutorial on how to build a React Native app with Expo.",
+        "slug": "building-a-react-native-app-with-expo"
+      },
+      {
+        "title": "Building a Progressive Web App with React",
+        "content": "Progressive web apps are the future of web development. Here's a tutorial on how to build a progressive web app with React.",
+        "slug": "building-a-progressive-web-app-with-react"
+      }
+    ]
+  },
+  {
+    "name": "Charlie Brown",
+    "email": "charlie.brown@example.com",
+    "posts": [
+      {
+        "title": "React vs. Angular: Which One Should You Use?",
+        "content": "React and Angular are two popular JavaScript frameworks. Here's a comparison to help you decide which one to use.",
+        "slug": "react-vs-angular-which-one-should-you-use"
+      },
+      {
+        "title": "How to Build a Progressive Web App with React and Firebase",
+        "content": "Progressive web apps are the future of web development. Here's a tutorial on how to build a progressive web app with React and Firebase.",
+        "slug": "how-to-build-a-progressive-web-app-with-react-and-firebase"
+      },
+      {
+        "title": "Best Practices for Using React with TypeScript",
+        "content": "TypeScript can help you write safer and more maintainable React code. Here are some best practices for using React with TypeScript.",
+        "slug": "best-practices-for-using-react-with-typescript"
+      },
+      {
+        "title": "How to Use React Context",
+        "content": "React Context is a powerful tool for managing global state in React apps. Here's a guide on how to use React Context.",
+        "slug": "how-to-use-react-context"
+      },
+      {
+        "title": "Building a Real-Time Dashboard with React and GraphQL",
+        "content": "Real-time dashboards are becoming increasingly popular in web apps. Here's a tutorial on how to build a real-time dashboard with React and GraphQL.",
+        "slug": "building-a-real-time-dashboard-with-react-and-graphql"
+      },
+      {
+        "title": "10 React Libraries for Building Forms",
+        "content": "Building forms can be a pain. Here are 10 React libraries that can help make it easier.",
+        "slug": "10-react-libraries-for-building-forms"
+      },
+      {
+        "title": "Server-Side Rendering with React and Next.js",
+        "content": "Server-side rendering can help improve the performance and SEO of your React app. Here's a tutorial on how to implement server-side rendering with React and Next.js.",
+        "slug": "server-side-rendering-with-react-and-nextjs"
+      },
+      {
+        "title": "Using React with D3",
+        "content": "D3 is a powerful data visualization library. Here's a guide on how to use React with D3 to create stunning data visualizations.",
+        "slug": "using-react-with-d3"
+      },
+      {
+        "title": "How to Build a React Native App with AWS Amplify",
+        "content": "AWS Amplify is a powerful tool for building React Native apps. Here's a tutorial on how to build a React Native app with AWS Amplify.",
+        "slug": "how-to-build-a-react-native-app-with-aws-amplify"
+      },
+      {
+        "title": "10 Common Mistakes to Avoid When Using React",
+        "content": "React can be tricky to use, especially if you're new to it. Here are 10 common mistakes to avoid when using React.",
+        "slug": "10-common-mistakes-to-avoid-when-using-react"
+      }
+    ]
+  }
+]
