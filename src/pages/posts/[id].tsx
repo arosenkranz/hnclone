@@ -5,7 +5,7 @@ import { Header } from "~/components/Header";
 
 import { api } from "~/utils/api";
 
-const Home: NextPage = () => {
+const Post: NextPage = () => {
   const { data: userData } = api.user.getUsersPosts.useQuery();
   console.log(userData);
 

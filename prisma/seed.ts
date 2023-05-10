@@ -15,8 +15,7 @@ async function main() {
       },
     });
   });
-  const result = await Promise.all(userPromises);
-  console.log({ result });
+  await Promise.all(userPromises);
 }
 
 main()

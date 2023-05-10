@@ -5,7 +5,6 @@ import {
   type DefaultSession,
 } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
 import { randomUUID, randomBytes } from "crypto";
@@ -52,11 +51,10 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
   },
-  // adapter: PrismaAdapter(prisma),
   secret: env.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 2 * 24 * 60 * 60, // 2 days
     updateAge: 24 * 60 * 60, // 24 hours
     generateSessionToken: () => {
       return randomUUID() ?? randomBytes(32).toString("hex");
@@ -66,11 +64,7 @@ export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
-      name: "Credentials",
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
+      name: "Sign in with email and password",
       credentials: {
         email: {
           label: "Email",

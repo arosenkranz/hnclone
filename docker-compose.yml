@@ -11,15 +11,15 @@ services:
       - ./db_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
-  # web:
-  #   build: .
-  #   command: bash -c "npm run db-create && npm run postinstall && npm run db-seed && npm run dev"
-  #   volumes:
-  #     - .:/usr/src/app
-  #   ports:
-  #     - "3000:3000"
-  #   depends_on:
-  #     - db
-  #   environment:
-  #     - DATABASE_URL=postgres://user:password@db:5432/db?schema=newsbits
-  #     - NODE_ENV=development
+  web:
+    build: .
+    command: bash -c "yarn db-prep && yarn dev"
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/db?schema=newsbits
+      - NODE_ENV=development
