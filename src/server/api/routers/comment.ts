@@ -8,9 +8,9 @@ import {
 
 export const commentRouter = createTRPCRouter({
   getCommentsByPostId: publicProcedure
-    .input(z.object({ postId: z.string().uuid() }))
+    .input(z.object({ postId: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.comments.findMany({
+      return ctx.prisma.comment.findMany({
         where: {
           postId: input.postId,
         },
@@ -22,9 +22,10 @@ export const commentRouter = createTRPCRouter({
     }),
 
   createComment: protectedProcedure
-    .input(z.object({ postId: z.string().uuid(), content: z.string() }))
+    .input(z.object({ postId: z.string(), content: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.comments.create({
+      console.log(ctx.session.user);
+      return ctx.prisma.comment.create({
         data: {
           content: input.content,
           post: {
@@ -34,7 +35,7 @@ export const commentRouter = createTRPCRouter({
           },
           author: {
             connect: {
-              id: ctx.session.user.id,
+              email: ctx.session.user.email,
             },
           },
         },
@@ -42,9 +43,9 @@ export const commentRouter = createTRPCRouter({
     }),
 
   upvoteComment: protectedProcedure
-    .input(z.object({ voteId: z.string().uuid() }))
+    .input(z.object({ voteId: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.comments.update({
+      return ctx.prisma.comment.update({
         where: {
           id: input.voteId,
         },
@@ -57,9 +58,9 @@ export const commentRouter = createTRPCRouter({
     }),
 
   downvoteComment: protectedProcedure
-    .input(z.object({ voteId: z.string().uuid() }))
+    .input(z.object({ voteId: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.comments.update({
+      return ctx.prisma.comment.update({
         where: {
           id: input.voteId,
         },

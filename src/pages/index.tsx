@@ -20,8 +20,8 @@ const Home: NextPage = () => {
       </Head>
       <div className="min-h-screen flex-col items-center justify-center">
         <Header />
-        <main>
-          <div className="container flex flex-col items-center justify-center gap-12 px-4 ">
+        <main className="mb-10 p-3">
+          <div className="container mx-auto flex flex-col items-center justify-center gap-12 px-4">
             <div className="flex flex-col items-center gap-2">
               {posts && (
                 <div className="flex flex-col items-center gap-2">
@@ -31,7 +31,7 @@ const Home: NextPage = () => {
                   <div className="flex flex-col gap-2">
                     {posts.map((post) => (
                       <Link
-                        href={`/posts/${post.id}`}
+                        href={`/posts/${post.slug}`}
                         key={post.id}
                         className="flex flex-col gap-2"
                       >

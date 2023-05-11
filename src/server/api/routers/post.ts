@@ -10,22 +10,35 @@ export const postRouter = createTRPCRouter({
   getPosts: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.post.findMany({
       include: {
-        comments: true,
         author: true,
+        _count: {
+          select: {
+            comments: true,
+          },
+        },
       },
     });
   }),
 
   getPostById: publicProcedure
-    .input(z.object({ id: z.string().uuid() }))
+    .input(z.object({ slug: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.prisma.post.findUnique({
         where: {
-          id: input.id,
+          slug: input.slug,
         },
         include: {
-          comments: true,
+          comments: {
+            include: {
+              author: true,
+            },
+          },
           author: true,
+          _count: {
+            select: {
+              comments: true,
+            },
+          },
         },
       });
     }),
@@ -50,7 +63,7 @@ export const postRouter = createTRPCRouter({
     }),
 
   upvotePost: protectedProcedure
-    .input(z.object({ id: z.string().uuid() }))
+    .input(z.object({ id: z.string() }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.post.update({
         where: {
@@ -65,7 +78,7 @@ export const postRouter = createTRPCRouter({
     }),
 
   downvotePost: protectedProcedure
-    .input(z.object({ id: z.string().uuid() }))
+    .input(z.object({ id: z.string() }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.post.update({
         where: {

@@ -4,7 +4,7 @@ import { api } from "~/utils/api";
 export const Header: React.FC = () => {
   return (
     <header className="flex items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-      <div className="container flex items-center justify-between px-4 py-6">
+      <div className="container flex items-center justify-between py-6">
         <h1 className="sm:text-[5rem] text-5xl font-extrabold tracking-tight text-white">
           Bits of News
         </h1>

@@ -33,7 +33,7 @@ export const userRouter = createTRPCRouter({
   }),
 
   getUserById: publicProcedure
-    .input(z.object({ id: z.string().uuid() }))
+    .input(z.object({ id: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.prisma.user.findUnique({
         where: {
