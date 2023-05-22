@@ -16,7 +16,7 @@ const Post: NextPage = () => {
     isError,
     isLoading,
     error,
-  } = api.post.getPostById.useQuery({
+  } = api.post.getPostBySlug.useQuery({
     slug: slug as string,
   });
 
@@ -73,10 +73,10 @@ const Post: NextPage = () => {
         <meta name="description" content={post.content || ""} />
         <link rel="icon" href="/favicon-32x32.png" />
       </Head>
-      <div className="min-h-screen flex-col ">
+      <div className="min-h-screen flex-col">
         <Header />
-        <main className="mb-10 p-3">
-          <div className="container mx-auto flex flex-col gap-12 px-4">
+        <main>
+          <div className="container mx-auto mb-10 flex max-w-4xl flex-col gap-12 p-3 px-4">
             <div className="flex flex-col gap-2">
               <h2 className=" text-3xl font-bold">{post.title}</h2>
               <p className="text-xl">{post.author.name}</p>
@@ -97,7 +97,7 @@ const Post: NextPage = () => {
                 ))}
               </div>
             </div>
-            <CommentForm postId={post.id} />
+            <CommentForm postId={post.id} slug={post.slug} />
             <div>
               <Link href="/">Back to Home</Link>
             </div>

@@ -20,7 +20,7 @@ export const postRouter = createTRPCRouter({
     });
   }),
 
-  getPostById: publicProcedure
+  getPostBySlug: publicProcedure
     .input(z.object({ slug: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.prisma.post.findUnique({

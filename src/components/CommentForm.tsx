@@ -3,11 +3,17 @@ import { api } from "~/utils/api";
 
 interface CommentFormProps {
   postId: string;
+  slug: string;
 }
 
-export const CommentForm: React.FC<CommentFormProps> = ({ postId }) => {
+export const CommentForm: React.FC<CommentFormProps> = ({ postId, slug }) => {
   const [commentBody, setCommentBody] = useState("");
-  const mutation = api.comment.createComment.useMutation();
+  const context = api.useContext();
+  const mutation = api.comment.createComment.useMutation({
+    async onSuccess() {
+      await context.post.getPostBySlug.invalidate({ slug });
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

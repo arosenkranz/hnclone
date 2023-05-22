@@ -35,7 +35,7 @@ export const commentRouter = createTRPCRouter({
           },
           author: {
             connect: {
-              email: ctx.session.user.email,
+              id: ctx.session.user.id,
             },
           },
         },

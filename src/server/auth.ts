@@ -30,6 +30,12 @@ declare module "next-auth" {
   // }
 }
 
+declare module "next-auth/jwt" {
+  interface JWT {
+    id: string;
+  }
+}
+
 /**
  * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
  *
@@ -37,13 +43,12 @@ declare module "next-auth" {
  */
 export const authOptions: NextAuthOptions = {
   callbacks: {
-    // session: ({ session, user }) => ({
-    //   ...session,
-    //   user: {
-    //     ...session.user,
-    //     id: user.id,
-    //   },
-    // }),
+    session({ session, token }) {
+      if (session?.user) {
+        session.user.id = token.id;
+      }
+      return session;
+    },
     jwt({ token, user }) {
       if (user) {
         token.id = user.id;
@@ -64,22 +69,16 @@ export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. 'Sign in with...')
-      name: "Sign in with email and password",
+      name: "email and password",
       credentials: {
         email: {
           label: "Email",
           type: "string",
-          placeholder: "jsmith@example.com",
+          placeholder: "alice.smith@example.com",
         },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials = { email: "", password: "" }, req) {
-        // You need to provide your own logic here that takes the credentials
-        // submitted and returns either a object representing a user or value
-        // that is false/null if the credentials are invalid.
-        // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
-        // You can also use the `req` object to obtain additional parameters
-        // (i.e., the request IP address)
         const user = await prisma.user.findUnique({
           where: {
             email: credentials.email,

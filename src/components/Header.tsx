@@ -1,34 +1,30 @@
 import { signIn, signOut, useSession } from "next-auth/react";
-import { api } from "~/utils/api";
+import Link from "next/link";
 
 export const Header: React.FC = () => {
   return (
-    <header className="flex items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
-      <div className="container flex items-center justify-between py-6">
-        <h1 className="sm:text-[5rem] text-5xl font-extrabold tracking-tight text-white">
+    <header className="mx-auto flex items-center justify-center">
+      <div className="container flex flex-col items-center justify-between  py-6 md:flex-row">
+        <Link
+          href="/"
+          className="border-2 border-black bg-black px-2 py-1 text-6xl font-bold text-white "
+        >
           Bits of News
-        </h1>
-        <AuthShowcase />
+        </Link>
+        <Auth />
       </div>
     </header>
   );
 };
 
-const AuthShowcase: React.FC = () => {
+const Auth: React.FC = () => {
   const { data: sessionData } = useSession();
 
-  const { data: secretMessage } = api.user.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined }
-  );
-
   return (
-    <div className="flex items-center justify-center gap-4">
-      <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-      </p>
+    <div className="my-2 flex flex-wrap items-center gap-4 md:my-0 md:flex-row">
+      <p>{sessionData && <span>Logged in as {sessionData.user?.name}</span>}</p>
       <button
-        className="hover:bg-white/20 rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition"
+        className="underline"
         onClick={sessionData ? () => void signOut() : () => void signIn()}
       >
         {sessionData ? "Sign out" : "Sign in"}
