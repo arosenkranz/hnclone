@@ -1,5 +1,4 @@
 import { type NextPage } from "next";
-import Link from "next/link";
 import MainLayout from "~/layouts/MainLayout";
 import PostList from "~/components/PostList";
 import { api } from "~/utils/api";
@@ -10,8 +9,7 @@ const Home: NextPage = () => {
   return (
     <MainLayout pageTitle="Home" description="Home page">
       <p className="w-100 bg-neutral-200 p-4 text-center">
-        Welcome to <Link href="/">Bits of News</Link>! This is a demo social
-        news site to showcase{" "}
+        Welcome to Bits of News! This is a demo social news site to showcase{" "}
         <a
           href="https://datadoghq.com"
           target="_blank"

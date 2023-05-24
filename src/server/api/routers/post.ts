@@ -17,6 +17,9 @@ export const postRouter = createTRPCRouter({
           },
         },
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   }),
 
@@ -63,11 +66,11 @@ export const postRouter = createTRPCRouter({
     }),
 
   upvotePost: protectedProcedure
-    .input(z.object({ id: z.string() }))
+    .input(z.object({ postId: z.string() }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.post.update({
         where: {
-          id: input.id,
+          id: input.postId,
         },
         data: {
           votes: {
@@ -78,11 +81,11 @@ export const postRouter = createTRPCRouter({
     }),
 
   downvotePost: protectedProcedure
-    .input(z.object({ id: z.string() }))
+    .input(z.object({ postId: z.string() }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.post.update({
         where: {
-          id: input.id,
+          id: input.postId,
         },
         data: {
           votes: {

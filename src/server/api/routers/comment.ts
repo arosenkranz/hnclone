@@ -24,7 +24,6 @@ export const commentRouter = createTRPCRouter({
   createComment: protectedProcedure
     .input(z.object({ postId: z.string(), content: z.string() }))
     .mutation(({ ctx, input }) => {
-      console.log(ctx.session.user);
       return ctx.prisma.comment.create({
         data: {
           content: input.content,

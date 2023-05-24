@@ -42,6 +42,9 @@ declare module "next-auth/jwt" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  pages: {
+    signIn: "/auth/credentials-signin",
+  },
   callbacks: {
     session({ session, token }) {
       if (session?.user) {

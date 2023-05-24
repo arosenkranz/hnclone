@@ -2,7 +2,7 @@ FROM node:19.6 AS base
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package.json ./
 
 FROM base as dev
 
