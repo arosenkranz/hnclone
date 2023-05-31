@@ -1,4 +1,4 @@
-import { type NextPage } from "next";
+import type { NextPage } from "next";
 import MainLayout from "~/layouts/MainLayout";
 import PostList from "~/components/PostList";
 import { api } from "~/utils/api";

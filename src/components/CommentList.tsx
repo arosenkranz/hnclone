@@ -1,0 +1,99 @@
+import type { User, Post, Comment } from "@prisma/client";
+import { useSession } from "next-auth/react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { api } from "~/utils/api";
+import VoteButton from "./VoteButton";
+
+type CommentWithAuthor = Comment & {
+  author: User;
+  _count: {
+    votes: number;
+  };
+};
+
+type CommentListItemProps = {
+  comment: CommentWithAuthor;
+};
+
+type CommentListProps = {
+  comments: CommentWithAuthor[];
+};
+
+const CommentListItem: React.FC<CommentListItemProps> = ({ comment }) => {
+  const { data: sessionData } = useSession();
+  // check if the user has already voted on this comment
+  const { data: hasVoted } = api.comment.hasVoted.useQuery({
+    commentId: comment.id,
+  });
+  const context = api.useContext();
+
+  const addVote = api.comment.addVote.useMutation({
+    async onSuccess() {
+      await context.comment.getCommentsByPostId.invalidate();
+      await context.comment.hasVoted.invalidate({ commentId: comment.id });
+    },
+  });
+
+  const removeVote = api.comment.removeVote.useMutation({
+    async onSuccess() {
+      await context.comment.getCommentsByPostId.invalidate();
+      await context.comment.hasVoted.invalidate({ commentId: comment.id });
+    },
+  });
+
+  const handleVote = (voteType: "add" | "remove") => {
+    if (!sessionData) {
+      return;
+    }
+
+    if (voteType === "add") {
+      addVote.mutate({ commentId: comment.id });
+    } else {
+      removeVote.mutate({ commentId: comment.id });
+    }
+  };
+
+  const { content } = comment;
+
+  return (
+    <li className="flex items-center gap-6 border-b border-dotted border-neutral-600 px-2 py-3 last-of-type:border-b-0">
+      <div className="flex min-w-[15%] flex-col items-center justify-center gap-1 px-3 md:min-w-[10%]">
+        <VoteButton
+          onClick={() => handleVote(hasVoted ? "remove" : "add")}
+          voteType={hasVoted ? "remove" : "add"}
+          disabled={!sessionData && true}
+        />
+        <div className="bg-neutral-600 px-2 py-1 text-2xl text-neutral-50">
+          {comment._count.votes}
+        </div>
+      </div>
+      <div>
+        <div>
+          <div className="text-neutral-500">
+            By {comment.author.name} on {comment.createdAt.toDateString()}
+          </div>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} className="prose">
+            {content}
+          </ReactMarkdown>
+        </div>
+      </div>
+    </li>
+  );
+};
+
+export const CommentList: React.FC<{ postId: string }> = ({ postId }) => {
+  const { data: comments } = api.comment.getCommentsByPostId.useQuery({
+    postId,
+  });
+  return (
+    <ul className="divide-y divide-neutral-600">
+      {comments &&
+        comments.map((comment) => (
+          <CommentListItem key={comment.id} comment={comment} />
+        ))}
+    </ul>
+  );
+};
+
+export default CommentList;

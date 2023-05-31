@@ -21,23 +21,6 @@ const UpArrow = () => (
   </svg>
 );
 
-const DownArrow = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={2}
-    stroke="currentColor"
-    className="h-6 w-6"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-    />
-  </svg>
-);
-
 export const VoteButton: React.FC<IVoteButtonProps> = ({
   voteType,
   disabled,
@@ -49,7 +32,7 @@ export const VoteButton: React.FC<IVoteButtonProps> = ({
       aria-label="Vote"
       onClick={onClick}
       disabled={disabled}
-      className={`flex items-center justify-center gap-1 text-neutral-500 transition-colors hover:text-neutral-700 ${
+      className={`flex items-center justify-center gap-1 text-neutral-500 transition-all hover:text-neutral-700 ${
         disabled ? "cursor-not-allowed opacity-50" : ""
       } ${voteType === "remove" ? "rotate-180 transform" : ""}`}
     >

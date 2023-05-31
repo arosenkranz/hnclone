@@ -70,7 +70,8 @@ export const postRouter = createTRPCRouter({
   addVote: protectedProcedure
     .input(z.object({ postId: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.vote.create({
+      console.log(ctx.session.user);
+      return ctx.prisma.votesOnPosts.create({
         data: {
           post: {
             connect: {
@@ -89,12 +90,10 @@ export const postRouter = createTRPCRouter({
   removeVote: protectedProcedure
     .input(z.object({ postId: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.vote.delete({
+      return ctx.prisma.votesOnPosts.deleteMany({
         where: {
-          userId_postId: {
-            userId: ctx.session.user.id,
-            postId: input.postId,
-          },
+          postId: input.postId,
+          userId: ctx.session.user.id,
         },
       });
     }),
@@ -103,7 +102,7 @@ export const postRouter = createTRPCRouter({
   hasVoted: protectedProcedure
     .input(z.object({ postId: z.string() }))
     .query(({ ctx, input }) => {
-      return ctx.prisma.vote.count({
+      return ctx.prisma.votesOnPosts.count({
         where: {
           userId: ctx.session.user.id,
           postId: input.postId,

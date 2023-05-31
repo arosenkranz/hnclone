@@ -17,6 +17,11 @@ export const commentRouter = createTRPCRouter({
         include: {
           post: true,
           author: true,
+          _count: {
+            select: {
+              votes: true,
+            },
+          },
         },
       });
     }),
@@ -44,7 +49,7 @@ export const commentRouter = createTRPCRouter({
   addVote: protectedProcedure
     .input(z.object({ commentId: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.vote.create({
+      return ctx.prisma.votesOnComments.create({
         data: {
           comment: {
             connect: {
@@ -63,7 +68,18 @@ export const commentRouter = createTRPCRouter({
   removeVote: protectedProcedure
     .input(z.object({ commentId: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.vote.deleteMany({
+      return ctx.prisma.votesOnComments.deleteMany({
+        where: {
+          commentId: input.commentId,
+          userId: ctx.session.user.id,
+        },
+      });
+    }),
+
+  hasVoted: protectedProcedure
+    .input(z.object({ commentId: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.votesOnComments.count({
         where: {
           commentId: input.commentId,
           userId: ctx.session.user.id,

@@ -28,11 +28,13 @@ const PostListItem: React.FC<PostListItemProps> = ({ post }) => {
   const addVote = api.post.addVote.useMutation({
     async onSuccess() {
       await context.post.getPosts.invalidate();
+      await context.post.hasVoted.invalidate({ postId: post.id });
     },
   });
   const removeVote = api.post.removeVote.useMutation({
     async onSuccess() {
       await context.post.getPosts.invalidate();
+      await context.post.hasVoted.invalidate({ postId: post.id });
     },
   });
 
@@ -54,7 +56,7 @@ const PostListItem: React.FC<PostListItemProps> = ({ post }) => {
       <div className="flex min-w-[15%] flex-col items-center justify-center gap-1 px-3 md:min-w-[10%]">
         <VoteButton
           onClick={() => handleVote(hasVoted ? "remove" : "add")}
-          voteType="add"
+          voteType={hasVoted ? "remove" : "add"}
           disabled={!sessionData && true}
         />
         <div className="bg-neutral-600 px-2 py-1 text-2xl text-neutral-50">

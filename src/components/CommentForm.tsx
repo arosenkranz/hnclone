@@ -1,5 +1,10 @@
+import "@uiw/react-md-editor/markdown-editor.css";
+import "@uiw/react-markdown-preview/markdown.css";
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import { api } from "~/utils/api";
+
+const MDEditor = dynamic(() => import("@uiw/react-md-editor"), { ssr: false });
 
 interface CommentFormProps {
   postId: string;
@@ -7,7 +12,7 @@ interface CommentFormProps {
 }
 
 export const CommentForm: React.FC<CommentFormProps> = ({ postId, slug }) => {
-  const [commentBody, setCommentBody] = useState("");
+  const [commentBody, setCommentBody] = useState<string | undefined>("");
   const context = api.useContext();
   const mutation = api.comment.createComment.useMutation({
     async onSuccess() {
@@ -17,19 +22,28 @@ export const CommentForm: React.FC<CommentFormProps> = ({ postId, slug }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!commentBody) {
+      return;
+    }
+
     mutation.mutate({ postId, content: commentBody });
     setCommentBody("");
   };
 
   return (
-    <div className="flex flex-col items-center gap-2">
-      <h2 className="text-center text-3xl font-bold">Comment Form</h2>
+    <div className="flex flex-col gap-2">
+      <h2 className=" text-xl font-bold">Leave a comment</h2>
       <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-        <textarea
-          className="w-full rounded-md border border-gray-300 p-2"
-          placeholder="Comment"
+        <MDEditor
           value={commentBody}
-          onChange={(e) => setCommentBody(e.target.value)}
+          onChange={setCommentBody}
+          preview="edit"
+          hideToolbar={false}
+          commands={[]}
+          textareaProps={{
+            placeholder: "Write your comment's content using Markdown.",
+          }}
         />
         <button
           className="w-full rounded-md border border-gray-300 p-2"
