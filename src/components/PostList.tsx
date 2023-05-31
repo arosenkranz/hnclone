@@ -21,47 +21,45 @@ type PostListProps = {
 
 const PostListItem: React.FC<PostListItemProps> = ({ post }) => {
   const { data: sessionData } = useSession();
+  // check if the user has already voted on this post
+  const { data: hasVoted } = api.post.hasVoted.useQuery({ postId: post.id });
+
   const context = api.useContext();
-  const upvoteMutation = api.post.upvotePost.useMutation({
+  const addVote = api.post.addVote.useMutation({
     async onSuccess() {
       await context.post.getPosts.invalidate();
     },
   });
-  const downvoteMutation = api.post.downvotePost.useMutation({
+  const removeVote = api.post.removeVote.useMutation({
     async onSuccess() {
       await context.post.getPosts.invalidate();
     },
   });
 
-  const handleVote = (voteType: "up" | "down") => {
+  const handleVote = (voteType: "add" | "remove") => {
     if (!sessionData) {
       return;
     }
 
-    if (voteType === "up") {
-      upvoteMutation.mutate({ postId: post.id });
+    if (voteType === "add") {
+      addVote.mutate({ postId: post.id });
     } else {
-      downvoteMutation.mutate({ postId: post.id });
+      removeVote.mutate({ postId: post.id });
     }
   };
 
   const { title, slug } = post;
   return (
     <li className="flex items-center gap-6 border-b border-dotted border-neutral-600 px-2 py-3 last-of-type:border-b-0">
-      <div className="flex min-w-[15%] flex-col items-center justify-center gap-2 px-3 md:min-w-[10%]">
+      <div className="flex min-w-[15%] flex-col items-center justify-center gap-1 px-3 md:min-w-[10%]">
         <VoteButton
-          onClick={() => handleVote("up")}
-          voteType="up"
+          onClick={() => handleVote(hasVoted ? "remove" : "add")}
+          voteType="add"
           disabled={!sessionData && true}
         />
         <div className="bg-neutral-600 px-2 py-1 text-2xl text-neutral-50">
-          {post.votes}
+          {post._count.votes}
         </div>
-        <VoteButton
-          onClick={() => handleVote("down")}
-          voteType="down"
-          disabled={!sessionData && true}
-        />
       </div>
       <div>
         <div>

@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import ReactMarkdown from "react-markdown";
 import MainLayout from "~/layouts/MainLayout";
 import { CommentForm } from "~/components/CommentForm";
 
@@ -52,7 +53,7 @@ const Post: NextPage = () => {
           <h2 className=" text-3xl font-bold">{post.title}</h2>
           <p className="text-xl">{post.author.name}</p>
           <p className="text-xl">{post.createdAt.toDateString()}</p>
-          <p className="text-xl">{post.content}</p>
+          <ReactMarkdown>{post.content}</ReactMarkdown>
         </div>
         <div>
           <h2 className="text-3xl font-bold">Comments</h2>

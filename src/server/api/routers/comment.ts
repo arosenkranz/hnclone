@@ -41,32 +41,32 @@ export const commentRouter = createTRPCRouter({
       });
     }),
 
-  upvoteComment: protectedProcedure
-    .input(z.object({ voteId: z.string() }))
+  addVote: protectedProcedure
+    .input(z.object({ commentId: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.comment.update({
-        where: {
-          id: input.voteId,
-        },
+      return ctx.prisma.vote.create({
         data: {
-          votes: {
-            increment: 1,
+          comment: {
+            connect: {
+              id: input.commentId,
+            },
+          },
+          user: {
+            connect: {
+              id: ctx.session.user.id,
+            },
           },
         },
       });
     }),
 
-  downvoteComment: protectedProcedure
-    .input(z.object({ voteId: z.string() }))
+  removeVote: protectedProcedure
+    .input(z.object({ commentId: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.comment.update({
+      return ctx.prisma.vote.deleteMany({
         where: {
-          id: input.voteId,
-        },
-        data: {
-          votes: {
-            decrement: 1,
-          },
+          commentId: input.commentId,
+          userId: ctx.session.user.id,
         },
       });
     }),

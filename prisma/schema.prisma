@@ -21,6 +21,7 @@ model User {
     email    String?   @unique
     posts    Post[]
     comments Comment[]
+    votes    Vote[]
 }
 
 model Post {
@@ -28,20 +29,33 @@ model Post {
     title     String
     content   String?
     slug      String    @unique
-    votes     Int       @default(0)
     createdAt DateTime  @default(now())
     author    User      @relation(fields: [authorId], references: [id])
     authorId  String
     comments  Comment[]
+    votes     Vote[]
 }
 
 model Comment {
     id        String   @id @default(cuid())
     content   String?
-    votes     Int      @default(0)
     createdAt DateTime @default(now())
     author    User     @relation(fields: [authorId], references: [id])
     authorId  String
     post      Post     @relation(fields: [postId], references: [id])
     postId    String
+    votes     Vote[]
+}
+
+model Vote {
+    id        String   @id @default(cuid())
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
+    post      Post?    @relation(fields: [postId], references: [id])
+    postId    String?
+    comment   Comment? @relation(fields: [commentId], references: [id])
+    commentId String?
+
+    @@unique([userId, postId])
+    @@unique([userId, commentId])
 }

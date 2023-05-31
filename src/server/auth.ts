@@ -43,7 +43,7 @@ declare module "next-auth/jwt" {
  */
 export const authOptions: NextAuthOptions = {
   pages: {
-    signIn: "/auth/credentials-signin",
+    signIn: "/auth/signin",
   },
   callbacks: {
     session({ session, token }) {

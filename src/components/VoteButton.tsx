@@ -1,5 +1,5 @@
 type IVoteButtonProps = {
-  voteType: "up" | "down";
+  voteType: "add" | "remove";
   disabled?: boolean;
   onClick: () => void;
 };
@@ -9,13 +9,13 @@ const UpArrow = () => (
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    stroke-width="1.5"
+    strokeWidth={2}
     stroke="currentColor"
     className="h-6 w-6"
   >
     <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       d="M4.5 15.75l7.5-7.5 7.5 7.5"
     />
   </svg>
@@ -26,7 +26,7 @@ const DownArrow = () => (
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    strokeWidth={1.5}
+    strokeWidth={2}
     stroke="currentColor"
     className="h-6 w-6"
   >
@@ -44,8 +44,16 @@ export const VoteButton: React.FC<IVoteButtonProps> = ({
   onClick,
 }) => {
   return (
-    <button onClick={onClick} disabled={disabled}>
-      {voteType === "up" ? <UpArrow /> : <DownArrow />}
+    // if disabled then add a class to the button to make it look disabled
+    <button
+      aria-label="Vote"
+      onClick={onClick}
+      disabled={disabled}
+      className={`flex items-center justify-center gap-1 text-neutral-500 transition-colors hover:text-neutral-700 ${
+        disabled ? "cursor-not-allowed opacity-50" : ""
+      } ${voteType === "remove" ? "rotate-180 transform" : ""}`}
+    >
+      <UpArrow />
     </button>
   );
 };

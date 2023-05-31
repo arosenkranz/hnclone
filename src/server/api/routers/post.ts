@@ -14,6 +14,7 @@ export const postRouter = createTRPCRouter({
         _count: {
           select: {
             comments: true,
+            votes: true,
           },
         },
       },
@@ -40,6 +41,7 @@ export const postRouter = createTRPCRouter({
           _count: {
             select: {
               comments: true,
+              votes: true,
             },
           },
         },
@@ -65,32 +67,46 @@ export const postRouter = createTRPCRouter({
       });
     }),
 
-  upvotePost: protectedProcedure
+  addVote: protectedProcedure
     .input(z.object({ postId: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.post.update({
-        where: {
-          id: input.postId,
-        },
+      return ctx.prisma.vote.create({
         data: {
-          votes: {
-            increment: 1,
+          post: {
+            connect: {
+              id: input.postId,
+            },
+          },
+          user: {
+            connect: {
+              id: ctx.session.user.id,
+            },
           },
         },
       });
     }),
 
-  downvotePost: protectedProcedure
+  removeVote: protectedProcedure
     .input(z.object({ postId: z.string() }))
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.post.update({
+      return ctx.prisma.vote.delete({
         where: {
-          id: input.postId,
-        },
-        data: {
-          votes: {
-            decrement: 1,
+          userId_postId: {
+            userId: ctx.session.user.id,
+            postId: input.postId,
           },
+        },
+      });
+    }),
+
+  // check if user has voted on post
+  hasVoted: protectedProcedure
+    .input(z.object({ postId: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.prisma.vote.count({
+        where: {
+          userId: ctx.session.user.id,
+          postId: input.postId,
         },
       });
     }),
