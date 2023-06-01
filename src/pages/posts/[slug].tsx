@@ -27,9 +27,14 @@ const Post: NextPage = () => {
     isError,
     isLoading,
     error,
-  } = api.post.getPostBySlug.useQuery({
-    slug: slug as string,
-  });
+  } = api.post.getPostBySlug.useQuery(
+    {
+      slug: slug as string,
+    },
+    {
+      enabled: router.isReady,
+    }
+  );
 
   return (
     <MainLayout
