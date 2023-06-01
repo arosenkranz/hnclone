@@ -22,7 +22,9 @@ type PostListProps = {
 const PostListItem: React.FC<PostListItemProps> = ({ post }) => {
   const { data: sessionData } = useSession();
   // check if the user has already voted on this post
-  const { data: hasVoted } = api.post.hasVoted.useQuery({ postId: post.id });
+  const { data: hasVoted } = sessionData
+    ? api.post.hasVoted.useQuery({ postId: post.id })
+    : { data: 0 };
 
   const context = api.useContext();
   const addVote = api.post.addVote.useMutation({
