@@ -43,3 +43,5 @@ yarn-error.log*
 
 db_data
 .npm
+
+# jenkins
