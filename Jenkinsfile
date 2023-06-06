@@ -6,6 +6,9 @@ pipeline {
     }
     environment {
         CI = 'true'
+        DATABASE_URL="postgresql://user:password@localhost:5432/db?schema=techstories"
+        NEXTAUTH_SECRET="secret"
+        NEXTAUTH_URL="http://localhost:3000"
     }
     stages {
         stage('Build') {
