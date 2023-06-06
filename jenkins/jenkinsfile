@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'yarn test'
+                sh 'NODE_OPTIONS="-r dd-trace/ci/init" DD_ENV=ci DD_SERVICE=techstories yarn test'
             }
         }
     }
