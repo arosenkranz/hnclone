@@ -1,26 +1,13 @@
-import type { User, Post, Comment } from "@prisma/client";
+import type { CommentListItemProps } from "~/types";
 import { useSession } from "next-auth/react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { api } from "~/utils/api";
 import VoteButton from "./VoteButton";
 
-type CommentWithAuthor = Comment & {
-  author: User;
-  _count: {
-    votes: number;
-  };
-};
-
-type CommentListItemProps = {
-  comment: CommentWithAuthor;
-};
-
-type CommentListProps = {
-  comments: CommentWithAuthor[];
-};
-
-const CommentListItem: React.FC<CommentListItemProps> = ({ comment }) => {
+export const CommentListItem: React.FC<CommentListItemProps> = ({
+  comment,
+}) => {
   const { data: sessionData } = useSession();
   // check if the user has already voted on this comment
   const { data: hasVoted } = api.comment.hasVoted.useQuery({

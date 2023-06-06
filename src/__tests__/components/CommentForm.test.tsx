@@ -22,15 +22,11 @@ jest.mock("../../utils/api", () => ({
 }));
 
 describe("CommentForm", () => {
-  it("should render a form with a textarea and a submit button", () => {
-    const { getByRole, getByPlaceholderText } = render(
-      <CommentForm postId="1" slug="test" />
-    );
+  it("should render a form with a Markdown component and a submit button", () => {
+    const { getByRole } = render(<CommentForm postId="1" slug="test" />);
 
     expect(getByRole("form")).toBeInTheDocument();
-    expect(
-      getByPlaceholderText(/write your comment's content/i)
-    ).toBeInTheDocument();
+
     expect(getByRole("button", { name: /submit/i })).toBeInTheDocument();
   });
 

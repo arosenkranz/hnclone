@@ -1,6 +1,8 @@
 import { prisma } from "~/server/db";
 import users from "./users.json";
 
+console.log("Seeding...");
+
 async function main() {
   const userPromises = users.map((user) => {
     return prisma.user.upsert({

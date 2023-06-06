@@ -7,9 +7,9 @@ export const Header: React.FC = () => {
       <div className="container flex flex-col items-center justify-between  py-6 md:flex-row">
         <Link
           href="/"
-          className="border-2 border-black bg-black px-2 py-1 text-6xl font-bold text-white "
+          className="border-2 border-black bg-black px-2 py-1 text-6xl  text-white "
         >
-          Bits of News
+          TechStories
         </Link>
         <Auth />
       </div>
@@ -19,7 +19,7 @@ export const Header: React.FC = () => {
 
 const Auth: React.FC = () => {
   const { data: sessionData } = useSession();
-
+  console.log("sessionData", sessionData);
   return (
     <div className="my-2 flex flex-wrap items-center gap-4 md:my-0 md:flex-row">
       <p>{sessionData && <span>Hi, {sessionData.user?.name}!</span>}</p>

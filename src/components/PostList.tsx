@@ -1,23 +1,8 @@
-import type { Post, User } from "@prisma/client";
+import type { PostListProps, PostListItemProps } from "~/types";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import VoteButton from "./VoteButton";
-
-type PostWithAuthor = Post & {
-  author: User;
-  _count: {
-    comments: number;
-  };
-};
-
-type PostListItemProps = {
-  post: PostWithAuthor;
-};
-
-type PostListProps = {
-  posts: PostWithAuthor[];
-};
 
 const PostListItem: React.FC<PostListItemProps> = ({ post }) => {
   const { data: sessionData } = useSession();
@@ -52,7 +37,6 @@ const PostListItem: React.FC<PostListItemProps> = ({ post }) => {
     }
   };
 
-  const { title, slug } = post;
   return (
     <li className="flex items-center gap-6 border-b border-dotted border-neutral-600 px-2 py-3 last-of-type:border-b-0">
       <div className="flex min-w-[15%] flex-col items-center justify-center gap-1 px-3 md:min-w-[10%]">
@@ -67,8 +51,8 @@ const PostListItem: React.FC<PostListItemProps> = ({ post }) => {
       </div>
       <div>
         <div>
-          <Link href={`/posts/${slug}`} className="text-xl">
-            {title}
+          <Link href={`/posts/${post.slug}`} className="text-xl">
+            {post.title}
           </Link>
         </div>
         <div>

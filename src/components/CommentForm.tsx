@@ -34,7 +34,7 @@ export const CommentForm: React.FC<CommentFormProps> = ({ postId, slug }) => {
   return (
     <div className="flex flex-col gap-2">
       <h2 className=" text-xl font-bold">Leave a comment</h2>
-      <form className="flex flex-col gap-2" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-2" role="form" onSubmit={handleSubmit}>
         <MDEditor
           value={commentBody}
           onChange={setCommentBody}
