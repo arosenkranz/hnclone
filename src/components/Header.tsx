@@ -19,7 +19,6 @@ export const Header: React.FC = () => {
 
 const Auth: React.FC = () => {
   const { data: sessionData } = useSession();
-  console.log("sessionData", sessionData);
   return (
     <div className="my-2 flex flex-wrap items-center gap-4 md:my-0 md:flex-row">
       <p>{sessionData && <span>Hi, {sessionData.user?.name}!</span>}</p>

@@ -1,14 +1,23 @@
-import type { CommentWithAuthor } from "~/types";
 import { render, fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { CommentList, CommentListItem } from "~/components/CommentList";
+import { CommentWithAuthor } from "~/types";
 
 describe("CommentList", () => {
-  const comments: CommentWithAuthor[] = [
-    {
+  const postId = "1";
+
+  it("should render a list of comments", () => {
+    const { getByRole } = render(<CommentList postId={postId} />);
+
+    expect(getByRole("list")).toBeInTheDocument();
+  });
+
+  it("should render a comment item", () => {
+    const data: CommentWithAuthor = {
       id: "1",
       content: "test",
-      createdAt: new Date().toISOString(),
+      createdAt: new Date(),
+      postId: "1",
       authorId: "1",
       author: {
         id: "1",
@@ -18,19 +27,10 @@ describe("CommentList", () => {
       _count: {
         votes: 0,
       },
-    }
-  ];
+    };
 
-  it("should render a list of comments", () => {
-    const { getByRole } = render(<CommentList comments={comments} />);
-
-    expect(getByRole("list")).toBeInTheDocument();
-  });
-
-  it("should render a comment item", () => {
-    const { getByRole } = render(<CommentListItem comment={comments[0]} />);
+    const { getByRole } = render(<CommentListItem comment={data} />);
 
     expect(getByRole("listitem")).toBeInTheDocument();
   });
-
-  
+});

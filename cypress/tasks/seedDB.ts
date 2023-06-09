@@ -1,12 +1,9 @@
 import { prisma } from "~/server/db";
-import users from "./users.json";
+import users from "../../prisma/users.json";
 
 console.log("Seeding...");
 
-async function main() {
-  // empty database before seeding (cascading delete)
-  await prisma.user.deleteMany();
-
+export default async function main() {
   const userPromises = users.map((user) => {
     return prisma.user.upsert({
       where: { email: user.email },
@@ -20,15 +17,6 @@ async function main() {
       },
     });
   });
+
   await Promise.all(userPromises);
 }
-
-main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
-  .catch(async (e) => {
-    console.error(e);
-    await prisma.$disconnect();
-    process.exit(1);
-  });
