@@ -20,6 +20,13 @@ const customJestConfig = {
       "<rootDir>/node_modules/micromark-extension-gfm/index.js",
   },
   moduleDirectories: ["node_modules", "src"],
+  transform: {
+    "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "babel-jest",
+  },
+  transformIgnorePatterns: [
+    "/node_modules/(?!micromark-extension-gfm).+\\.js$",
+  ],
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

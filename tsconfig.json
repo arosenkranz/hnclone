@@ -32,5 +32,6 @@
     "./cypress/**/*.ts",
     "./cypress.config.ts"
   ],
-  "exclude": ["node_modules", "src/*.test.ts"]
+  "exclude": ["node_modules", "src/*.test.ts"],
+  "types": ["node", "jest", "@testing-library/jest-dom"]
 }
