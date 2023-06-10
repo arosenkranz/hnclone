@@ -13,7 +13,7 @@ services:
       - "5432:5432"
   web:
     build: .
-    command: bash -c "yarn db-prep && yarn dev"
+    command: wait-for-it db:5432 -- bash -c "yarn db-prep && yarn dev"
     volumes:
       # mount everything except node_modules
       - .:/usr/src/app
