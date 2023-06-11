@@ -30,6 +30,7 @@ export const VoteButton: React.FC<IVoteButtonProps> = ({
     // if disabled then add a class to the button to make it look disabled
     <button
       aria-label={voteType === "add" ? "Add Vote" : "Remove Vote"}
+      role="button"
       onClick={onClick}
       disabled={disabled}
       className={`flex items-center justify-center gap-1 text-neutral-500 transition-all hover:text-neutral-700 ${

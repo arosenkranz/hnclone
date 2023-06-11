@@ -14,8 +14,8 @@
     "test": "NODE_OPTIONS=\"--max-old-space-size=12288 ${NODE_OPTIONS:-}\" jest",
     "test:watch": "jest --watch",
     "test:ci": "jest --ci",
-    "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
-    "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
+    "e2e": "cypress open --e2e",
+    "e2e:headless": "cypress run --e2e",
     "component": "cypress open --component",
     "component:headless": "cypress run --component"
   },
@@ -49,6 +49,7 @@
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
     "@types/eslint": "^8.21.3",
+    "@types/jest": "^29.5.2",
     "@types/node": "^18.15.5",
     "@types/prettier": "^2.7.2",
     "@types/react": "^18.0.28",

@@ -1,7 +1,6 @@
 const nextJest = require("next/jest");
 
 const createJestConfig = nextJest({
-  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
   dir: "./",
 });
 
@@ -14,18 +13,10 @@ const customJestConfig = {
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
     "^.+\\.(jpg|jpeg|png|gif|webp|avif|svg)$":
       "<rootDir>/__mocks__/file-mock.js",
-    "react-markdown":
-      "<rootDir>/node_modules/react-markdown/react-markdown.min.js",
-    "micromark-extension-gfm":
-      "<rootDir>/node_modules/micromark-extension-gfm/index.js",
+    // remark-gfm
   },
   moduleDirectories: ["node_modules", "src"],
-  transform: {
-    "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "babel-jest",
-  },
-  transformIgnorePatterns: [
-    "/node_modules/(?!micromark-extension-gfm).+\\.js$",
-  ],
+  transformIgnorePatterns: ["/node_modules/(?!remark-gfm).+\\.js$"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
 };
 
