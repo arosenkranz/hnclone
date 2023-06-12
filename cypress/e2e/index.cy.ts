@@ -7,9 +7,10 @@ describe("E2E Test", () => {
     cy.visit("/");
   });
 
-  // render the page with a list of comments
-  it("should render the page with a list of comments", () => {
+  // render the page with a list of posts
+  it("should render the page with a list of posts", () => {
     cy.visit("/");
+
     cy.get("li").should("have.length.greaterThan", 0);
   });
 });

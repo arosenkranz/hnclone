@@ -16,14 +16,15 @@ datadogRum.init({
   clientToken: process.env.NEXT_PUBLIC_DD_CLIENT_TOKEN || "",
   site: "datadoghq.com",
   service: process.env.NEXT_PUBLIC_DD_SERVICE_NAME || "ci-test-visibility",
-  env: "test",
+  env: process.env.NEXT_PUBLIC_DD_ENV || "development",
   // Specify a version number to identify the deployed version of your application in Datadog
-  version: "1.0.0",
+  version: process.env.NEXT_PUBLIC_DD_VERSION || "1.0.0",
   sessionSampleRate: 100,
   sessionReplaySampleRate: 100,
   trackUserInteractions: true,
   trackResources: true,
   trackLongTasks: true,
+  allowedTracingOrigins: [/https:\/\/.*\.env.play.instruqt\.com/],
   defaultPrivacyLevel: "mask-user-input",
 });
 

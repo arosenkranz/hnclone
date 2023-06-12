@@ -70,6 +70,12 @@ test("calls the sign-out when session state", () => {
 });
 
 test("renders the user's name when signed in", () => {
+  // half of the time, clear the session
+  Math.random() < 0.5 &&
+    (useSession as jest.Mock).mockReturnValueOnce({
+      data: null,
+    });
+
   render(<Header />);
 
   const name = screen.getByText(/test/i);

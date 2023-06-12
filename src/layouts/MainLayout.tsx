@@ -13,7 +13,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   description,
   children,
 }) => {
-  const title = pageTitle ? `${pageTitle} | Bits of News` : "Bits of News";
+  const title = pageTitle ? `${pageTitle} | TechStories` : "TechStories";
   return (
     <>
       <Head>
