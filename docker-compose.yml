@@ -18,7 +18,8 @@ services:
       # mount everything except node_modules
       - .:/usr/src/app
       # mount node_modules from a volume to avoid permission issues
-      - /usr/src/app/node_modules
+      - ./node_modules:/usr/src/app/node_modules
+      - ./.next:/usr/src/app/.next
     ports:
       - "3000:3000"
     depends_on:
@@ -26,3 +27,4 @@ services:
     environment:
       - DATABASE_URL=postgres://user:password@db:5432/db?schema=techstories
       - NODE_ENV=development
+      - NEXT_TELEMETRY_DISABLED=1
