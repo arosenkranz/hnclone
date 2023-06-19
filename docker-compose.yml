@@ -15,9 +15,7 @@ services:
     build: .
     command: wait-for-it db:5432 -- bash -c "yarn db-prep && yarn dev"
     volumes:
-      # mount everything except node_modules
       - .:/usr/src/app
-      # mount node_modules from a volume to avoid permission issues
       - ./node_modules:/usr/src/app/node_modules
       - ./.next:/usr/src/app/.next
     ports:

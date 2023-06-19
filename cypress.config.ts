@@ -10,7 +10,7 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       require("dd-trace/ci/cypress/plugin")(on, config);
     },
-    // specPattern: "cypress/tests/**/*.spec.{js,jsx,ts,tsx}",
+    specPattern: "cypress/e2e/**/*.spec.{js,jsx,ts,tsx}",
     supportFile: "cypress/support/e2e.ts",
     retries: {
       runMode: 3,
