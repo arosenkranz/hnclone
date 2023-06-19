@@ -15,7 +15,8 @@ services:
     build: .
     command: wait-for-it db:5432 -- bash -c "yarn db-prep && yarn dev"
     volumes:
-      - .:/usr/src/app
+      - ./src:/usr/src/app/src
+      - ./cypress:/usr/src/app/cypress
       - ./node_modules:/usr/src/app/node_modules
       - ./.next:/usr/src/app/.next
     ports:
@@ -26,3 +27,4 @@ services:
       - DATABASE_URL=postgres://user:password@db:5432/db?schema=techstories
       - NODE_ENV=development
       - NEXT_TELEMETRY_DISABLED=1
+    stdin_open: true

@@ -14,13 +14,24 @@ RUN apt-get update && apt-get install -y \
   xvfb && \
   rm -rf /var/lib/apt/lists/*
 
+# change user
+USER node
+
 WORKDIR /usr/src/app
 
-COPY package.json ./
+# copy package.json and change ownership to node
+COPY --chown=node:node package.json ./
 
-FROM base as dev
+# copy prisma directory
+COPY --chown=node:node prisma ./prisma
+
+# copy .env
+COPY --chown=node:node .env ./
+
+# copy tsconfig.json
+COPY --chown=node:node tsconfig.json ./
+
+COPY --chown=node:node . .
 
 RUN yarn install
 RUN yarn global add prisma @datadog/datadog-ci
-
-COPY . .
