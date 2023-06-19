@@ -17,6 +17,11 @@ const customJestConfig = {
   moduleDirectories: ["node_modules", "src"],
   transformIgnorePatterns: ["/node_modules/(?!remark-gfm).+\\.js$"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  ignorePatterns: [
+    "<rootDir>/.next/",
+    "<rootDir>/node_modules/",
+    "<rootDir>/cypress/",
+  ],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
