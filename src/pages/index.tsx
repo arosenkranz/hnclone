@@ -21,7 +21,7 @@ const Home: NextPage = () => {
         <strong>Password:</strong> <code>password</code>
       </p>
 
-      {posts && <PostList posts={posts} />}
+      {posts ? <PostList posts={posts} /> : "Loading..."}
     </MainLayout>
   );
 };
