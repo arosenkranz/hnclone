@@ -1,6 +1,5 @@
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
 import SignInForm from "~/components/SignInForm";
 
 const mockPush = jest.fn();
@@ -10,11 +9,11 @@ jest.mock("next/router", () => ({
   useRouter: jest.fn(() => ({ query: { callbackUrl: "/" }, push: mockPush })),
 }));
 
-describe("SignInForm", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
+describe("SignInForm", () => {
   it("displays an error message when the user inputs incorrect credentials", async () => {
     // Mock the signIn function to return an error
     (signIn as jest.Mock).mockResolvedValue({ error: "Invalid credentials" });
