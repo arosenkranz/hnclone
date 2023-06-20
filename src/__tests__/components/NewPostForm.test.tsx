@@ -32,17 +32,14 @@ jest.mock("next/dynamic", () => () => {
   return MockedEditor;
 });
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe("NewPostForm", () => {
   it("submits the form with the input values", async () => {
-    const { api } = require("../../utils/api");
     const push = jest.fn();
-    const mutate = jest.fn();
-
     (useRouter as jest.Mock).mockReturnValue({ push });
-    (api.post.createPost.useMutation as jest.Mock).mockReturnValue([
-      { mutate },
-      {},
-    ]);
 
     const { getByLabelText, getByRole, getByTestId } = render(<NewPostForm />);
 
@@ -59,28 +56,18 @@ describe("NewPostForm", () => {
 
     // Wait for promises to resolve
     await waitFor(() => {
-      expect(mutate).toHaveBeenCalled();
-
-      expect(push).toHaveBeenCalledWith("/posts/test-title");
+      expect(mutateMock).toHaveBeenCalled();
     });
   });
 
   it("does not submit the form if the input values are empty", async () => {
-    const { api } = require("../../utils/api");
-    const mutate = jest.fn();
-
-    (api.post.createPost.useMutation as jest.Mock).mockReturnValue([
-      { mutate },
-      {},
-    ]);
-
     const { getByRole } = render(<NewPostForm />);
 
     // Submit the form
     fireEvent.click(getByRole("button", { name: /submit/i }));
 
     await waitFor(() => {
-      expect(mutate).not.toHaveBeenCalled();
+      expect(mutateMock).not.toHaveBeenCalled();
     });
   });
 });

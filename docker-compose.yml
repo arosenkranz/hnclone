@@ -19,6 +19,7 @@ services:
       - ./cypress:/usr/src/app/cypress
       - ./node_modules:/usr/src/app/node_modules
       - ./.next:/usr/src/app/.next
+      - ./.git:/usr/src/app/.git
     ports:
       - "3000:3000"
     depends_on:
