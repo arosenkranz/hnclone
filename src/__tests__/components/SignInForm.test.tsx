@@ -1,6 +1,5 @@
 import { render, fireEvent, waitFor } from "@testing-library/react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
 import SignInForm from "~/components/SignInForm";
 
 const mockPush = jest.fn();
