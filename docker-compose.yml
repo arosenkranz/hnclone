@@ -15,7 +15,7 @@ services:
     build: .
     command: wait-for-it db:5432 -- bash -c "yarn db-prep && yarn dev"
     volumes:
-      - ./src:/usr/src/app/src
+      - .:/usr/src/app/
       - ./cypress:/usr/src/app/cypress
       - ./node_modules:/usr/src/app/node_modules
       - ./.next:/usr/src/app/.next
