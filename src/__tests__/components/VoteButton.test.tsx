@@ -30,7 +30,7 @@ test("applies the disabled styles and attributes when disabled prop is true", ()
 
 test("does not apply the disabled styles and attributes when disabled prop is false", () => {
   render(<VoteButton voteType="add" onClick={jest.fn()} disabled={false} />);
-  const enabledButton = screen.getByRole("button", { name: /add vote/i });
+  const enabledButton = screen.getByRole("button", { name: /add vote/ });
   expect(enabledButton).not.toBeDisabled();
   expect(enabledButton).not.toHaveClass("cursor-not-allowed");
 });
