@@ -3,12 +3,20 @@ import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { Inter } from "next/font/google";
 import { datadogRum } from "@datadog/browser-rum";
+import { datadogLogs } from "@datadog/browser-logs";
 import { api } from "~/utils/api";
 import "~/styles/globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+datadogLogs.init({
+  clientToken: process.env.NEXT_PUBLIC_DD_CLIENT_TOKEN || "",
+  site: "datadoghq.com",
+  forwardErrorsToLogs: true,
+  sessionSampleRate: 100,
 });
 
 datadogRum.init({
