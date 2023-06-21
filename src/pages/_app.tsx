@@ -17,6 +17,9 @@ datadogLogs.init({
   site: "datadoghq.com",
   forwardErrorsToLogs: true,
   sessionSampleRate: 100,
+  env: process.env.NEXT_PUBLIC_DD_ENV || "development",
+  service: process.env.NEXT_PUBLIC_DD_SERVICE_NAME || "ci-test-visibility",
+  forwardConsoleLogs: "all",
 });
 
 datadogRum.init({

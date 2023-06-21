@@ -17,7 +17,9 @@
     "e2e": "cypress open --e2e",
     "e2e:headless": "start-server-and-test 'yarn dev' 3000 'cypress run --e2e'",
     "component": "cypress open --component",
-    "component:headless": "cypress run --component"
+    "component:headless": "cypress run --component",
+    "dd-test": "NODE_OPTIONS=\"-r dd-trace/ci/init\" DD_ENV=${DD_ENV} DD_SERVICE=${DD_SERVICE} DD_API_KEY=${DD_API_KEY} DD_APPLICATION_KEY=${DD_APP_KEY} yarn test:ci",
+    "dd-e2e": "NODE_OPTIONS=\"-r dd-trace/ci/init\" DD_ENV=${DD_ENV} DD_SERVICE=${DD_SERVICE} yarn e2e:headless"
   },
   "dependencies": {
     "@datadog/browser-logs": "^4.43.0",
